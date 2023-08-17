@@ -1,3 +1,26 @@
+------------THE VIEW-----------
+CREATE OR REPLACE VIEW proj_view AS SELECT u.table_name AS table_name, u.column_name AS column_name
+FROM user_tab_columns u
+JOIN user_cons_columns uc_cols
+ON u.column_name = uc_cols.column_name
+JOIN user_constraints u_cons
+ON uc_cols.constraint_name = u_cons.constraint_name
+WHERE u_cons.constraint_type = 'P'
+AND u.data_type = 'NUMBER'
+AND u.table_name = uc_cols.table_name
+AND u.table_name NOT IN (SELECT table_name FROM user_cons_columns WHERE position > 1);
+------ where the column datatype is number --------
+SELECT * FROM user_tab_columns u;
+------ where the constraint name in user_cons_columns = constraint name in user_constraints
+------ where position is < 1
+SELECT * FROM user_cons_columns uc_cols;
+----- where constraint type is primary key ------
+SELECT * FROM user_constraints u_cons;
+--------CHECK---------
+SELECT * FROM proj_view;
+
+---------The Script ---------
+
 DECLARE
 CURSOR tables_cur IS (SELECT * FROM proj_view);
 v_seq_counter NUMBER;
