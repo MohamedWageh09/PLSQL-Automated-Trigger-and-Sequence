@@ -1,3 +1,4 @@
+``` sql
 ------------THE VIEW-----------
 CREATE OR REPLACE VIEW proj_view AS SELECT u.table_name AS table_name, u.column_name AS column_name
 FROM user_tab_columns u
@@ -18,7 +19,9 @@ SELECT * FROM user_cons_columns uc_cols;
 SELECT * FROM user_constraints u_cons;
 --------CHECK---------
 SELECT * FROM proj_view;
+```
 
+```sql
 ---------The Script ---------
 
 DECLARE
@@ -48,3 +51,4 @@ BEGIN
                          END;';
   END LOOP;
 END;
+```
